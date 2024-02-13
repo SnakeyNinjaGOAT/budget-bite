@@ -3,6 +3,17 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      spacing: {
+        61: "16rem",
+        102: "30rem",
+        108: "38rem",
+        110: "40rem",
+        114: "46rem",
+        120: "54rem",
+      },
+      backgroundImage: {
+        "home-banner": "url('/src/assets/home-banner.jpg')",
+      },
       colors: {
         fresh: {
           DEFAULT: "#78BA45",
