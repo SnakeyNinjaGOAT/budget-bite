@@ -5,7 +5,7 @@ const link = "text-base text-gray-200 mt-5";
 
 const Footer = () => {
   return (
-    <div className="flex flex-col bg-slate-800 text-white mt-20">
+    <div className="flex flex-col bg-slate-800 text-white">
       <section className="flex mt-10 justify-around">
         <div>LOGO</div>
         <div className="gap-4">
