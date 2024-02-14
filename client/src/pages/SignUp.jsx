@@ -1,7 +1,45 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 const SignUp = () => {
   const [showpass, setShowPass] = useState(false);
+  const [formData, setFormData] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+  const formHandler = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    console.log("HIIII");
+    setLoading(true);
+    try {
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+      if (data.success === false) {
+        setLoading(false);
+        setError(data.message);
+        return;
+      }
+      setLoading(false);
+      setError(null);
+      navigate("/sign-in");
+    } catch (err) {
+      console.log(error);
+      setLoading(false);
+      setError(error.message);
+    }
+  };
+
   return (
     <>
       <div className="bg-gray-100 pb-28">
@@ -57,6 +95,7 @@ const SignUp = () => {
                 aria-labelledby="username"
                 placeholder="Username..."
                 className="bg-gray-200 border rounded text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2 focus:outline-none"
+                onChange={formHandler}
               />
             </div>
             <div className="mt-6 w-full">
@@ -73,6 +112,7 @@ const SignUp = () => {
                 type="email"
                 className="bg-gray-200 border rounded text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2 focus:outline-none"
                 placeholder="e.g: john@gmail.com"
+                onChange={formHandler}
               />
             </div>
             <div className="mt-6 w-full">
@@ -89,6 +129,7 @@ const SignUp = () => {
                   type={showpass ? "text" : "password"}
                   className="bg-gray-200 border rounded text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2 focus:outline-none"
                   placeholder="********"
+                  onChange={formHandler}
                 />
                 <div
                   onClick={() => setShowPass(!showpass)}
@@ -132,8 +173,10 @@ const SignUp = () => {
             </div>
             <div className="mt-8">
               <button
-                role="button"
-                className="focus:ring-2 focus:ring-offset-2 focus:ring-fresh-500 text-sm font-semibold leading-none text-white focus:outline-none bg-fresh-600 border rounded hover:bg-fresh-500 py-4 w-full"
+                type="button"
+                className="focus:ring-2 focus:ring-offset-2 focus:ring-fresh-500 text-sm font-semibold leading-none text-white focus:outline-none bg-fresh-600 border rounded hover:bg-fresh-500 py-4 w-full disabled:opacity-80"
+                onClick={handleSubmit}
+                disabled={loading}
               >
                 Create my account
               </button>
