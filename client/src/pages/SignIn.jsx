@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { OAuth } from "../components";
 import {
   signInStart,
   signInSuccess,
@@ -34,6 +35,7 @@ const SignIn = () => {
 
       if (data.success === false) {
         dispatch(signInFailure(data.message));
+        return;
       }
       dispatch(signInSuccess(data));
       navigate("/");
@@ -79,11 +81,15 @@ const SignIn = () => {
                 Sign up
               </Link>
             </p>
-
+            <OAuth />
             <div className="w-full flex items-center justify-between py-5">
               <hr className="w-full bg-gray-400" />
-            </div>
 
+              <p className="text-base font-medium leading-4 px-2.5 text-gray-500">
+                OR
+              </p>
+              <hr className="w-full bg-gray-400" />
+            </div>
             <div className="">
               <label
                 htmlFor="email"
@@ -170,7 +176,7 @@ const SignIn = () => {
           <div className="xl:w-1/3 md:w-1/2 lg:ml-16 ml-8 md:mt-0 mt-6">
             <div>
               <p className="text-3xl text-center">
-                <span className="text-fresh">Welcome</span> back!
+                <span className="text-fresh">Welcome</span> back
               </p>
             </div>
             <div className="mt-8">
