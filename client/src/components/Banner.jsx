@@ -6,14 +6,14 @@ import ingredients from "../assets/ingredients.png";
 
 const Banner = () => {
   return (
-    <div className="mt-10 md:mt-16 overflow-y-hidden flex flex-col justify-center items-center">
+    <div className="mb-10 md:mb-16 mt-10 md:mt-16 overflow-y-hidden flex flex-col justify-center items-center">
       <div className="flex flex-col justify-center items-center gap-4">
-        <p className="text-2xl xl:text-4xl font-semibold text-gray-800">
+        <p className="text-2xl xl:text-4xl text-center font-semibold text-gray-800">
           Effortless Meal Planning Starts Here!
         </p>
         <p>Simplify Your Shopping, Master Your Meals</p>
       </div>
-      <section className="grid grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6 xl:gap-8 mt-8 md:mt-10 xl:mt-12 mb-8 text-center text-slate-800 mx-8">
+      <section className="flex flex-col md:grid  md:grid-cols-2  lg:grid-cols-3 gap-4 md:gap-6 xl:gap-8 mt-8 md:mt-10 xl:mt-12 mb-8 text-center text-slate-800 mx-8">
         <div className="w-full">
           <div className="flex flex-col gap-8">
             <p className="sm:text-xl md:text-2xl font-semibold text-slate-900">
@@ -38,12 +38,15 @@ const Banner = () => {
             </p>
           </div>
         </div>
-        <div className="w-full">
+        <div className="w-full md:col-start-1 md:col-span-2 lg:col-start-3 lg:col-span-1">
           <div className="flex flex-col gap-8">
             <p className="sm:text-xl md:text-2xl font-semibold text-slate-900">
               Stress-Free Cooking
             </p>
-            <img src={burger} />
+            <img
+              src={burger}
+              className="md:size-1/2 md:self-center lg:size-full lg:self-auto"
+            />
             <p className="text-sm md:text-base">
               With all the heavy lifting taken care of, you can cook without
               worries!

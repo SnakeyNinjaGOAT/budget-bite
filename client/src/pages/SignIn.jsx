@@ -27,7 +27,7 @@ const SignIn = () => {
           </div>
           <div className="bg-white shadow-lg rounded xl:w-1/3 lg:w-5/12 md:w-1/2 w-full lg:px-10 sm:px-6 sm:py-10 px-2 py-6">
             <p className="focus:outline-none text-2xl font-extrabold leading-6 text-gray-800">
-              Create your account
+              Log in to your                                                                                                                                                                                                                                                                                                                                                                                                           account
             </p>
             <p className="focus:outline-none text-sm mt-4 font-medium leading-none text-gray-500">
               Don't have an account?{" "}
