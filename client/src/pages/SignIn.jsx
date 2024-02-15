@@ -1,8 +1,47 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+} from "../redux/user/userSlice";
 
 const SignIn = () => {
   const [showpass, setShowPass] = useState(false);
+  const [formData, setFormData] = useState({});
+  const { error, loading } = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const formHandler = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+  const handleSubmit = async () => {
+    dispatch(signInStart);
+    try {
+      const res = await fetch("/api/auth/signin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (data.success === false) {
+        dispatch(signInFailure(data.message));
+      }
+      dispatch(signInSuccess(data));
+      navigate("/");
+    } catch (err) {
+      dispatch(signInFailure(err.message));
+    }
+  };
+
   return (
     <>
       <div className="bg-gray-100 pb-28">
@@ -27,7 +66,7 @@ const SignIn = () => {
           </div>
           <div className="bg-white shadow-lg rounded xl:w-1/3 lg:w-5/12 md:w-1/2 w-full lg:px-10 sm:px-6 sm:py-10 px-2 py-6">
             <p className="focus:outline-none text-2xl font-extrabold leading-6 text-gray-800">
-              Log in to your                                                                                                                                                                                                                                                                                                                                                                                                           account
+              Log in to your account
             </p>
             <p className="focus:outline-none text-sm mt-4 font-medium leading-none text-gray-500">
               Don't have an account?{" "}
@@ -59,6 +98,7 @@ const SignIn = () => {
                 type="email"
                 className="bg-gray-200 border rounded text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2 focus:outline-none"
                 placeholder="e.g: john@gmail.com"
+                onChange={formHandler}
               />
             </div>
             <div className="mt-6 w-full">
@@ -75,6 +115,7 @@ const SignIn = () => {
                   type={showpass ? "text" : "password"}
                   className="bg-gray-200 border rounded text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2 focus:outline-none"
                   placeholder="********"
+                  onChange={formHandler}
                 />
                 <div
                   onClick={() => setShowPass(!showpass)}
@@ -120,8 +161,9 @@ const SignIn = () => {
               <button
                 type="button"
                 className="focus:ring-2 focus:ring-offset-2 focus:ring-fresh-500 text-sm font-semibold leading-none text-white focus:outline-none bg-fresh-600 border rounded hover:bg-fresh-500 py-4 w-full"
+                onClick={handleSubmit}
               >
-                Create my account
+                Log In
               </button>
             </div>
           </div>
