@@ -7,13 +7,14 @@ const App = () => {
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route element={<PrivateRoute destination={<LandingPage />} />}>
+        <Route element={<PrivateRoute destination={"landing"} />}>
           <Route path="/" element={<Home />} />
         </Route>
+        <Route path="/landing" element={<LandingPage />} />
         <Route path="/about" element={<About />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/sign-in" element={<SignIn />} />
-        <Route element={<PrivateRoute destination={<SignIn />} />}>
+        <Route element={<PrivateRoute Destination={"sign-in"} />}>
           <Route path="/profile" element={<Profile />} />
         </Route>
       </Routes>
